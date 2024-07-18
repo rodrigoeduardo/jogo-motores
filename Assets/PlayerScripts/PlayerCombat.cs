@@ -16,44 +16,53 @@ public class PlayerCombat : MonoBehaviour
 
     private bool facingRight = true;
 
-    void Update() {
-        if (Time.time >= nextAttackTime) {
-            if (Input.GetMouseButton(0)) {
+    void Update()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetMouseButton(0))
+            {
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
         }
 
         // Flip attack point based on player direction
-        if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight) {
+        if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight)
+        {
             Flip();
-        } else if (Input.GetAxisRaw("Horizontal") < 0 && facingRight) {
+        }
+        else if (Input.GetAxisRaw("Horizontal") < 0 && facingRight)
+        {
             Flip();
         }
     }
 
-    void Attack() {
+    void Attack()
+    {
         animator.SetTrigger("Attack");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies) {
+        foreach (Collider2D enemy in hitEnemies)
+        {
             Enemy enemyComponent = enemy.GetComponent<Enemy>();
-            if (enemyComponent != null) {
+            if (enemyComponent != null)
+            {
                 enemyComponent.TakeDamage(attackDamage);
-            } else {
-                Debug.LogWarning("Enemy component not found on " + enemy.name);
             }
         }
     }
 
-    void Flip() {
+    void Flip()
+    {
         facingRight = !facingRight;
         Vector3 scaler = attackPoint.localPosition;
         scaler.x *= -1;
         attackPoint.localPosition = scaler;
     }
 
-    void OnDrawGizmosSelected() {
+    void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }

@@ -1,4 +1,0 @@
-repository "MotoresJogo@devHebertfst@cloud"
-  path "/"
-    br "/main"
-    co "/main"
