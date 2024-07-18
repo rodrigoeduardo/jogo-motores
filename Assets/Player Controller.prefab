@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5889556101579531953}
   - component: {fileID: 3612104394559346545}
   - component: {fileID: 7670562680723995881}
+  - component: {fileID: 8295531722681909098}
+  - component: {fileID: 8949522269956792751}
   m_Layer: 6
   m_Name: Player Controller
   m_TagString: Untagged
@@ -36,6 +38,7 @@ Transform:
   m_Children:
   - {fileID: 8028985312053069992}
   - {fileID: 1535721803211792807}
+  - {fileID: 1288769096998333188}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8417090850839527663
@@ -51,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 99dfc01cba16d6e438dc497f90e18af9, type: 2}
-  anim: {fileID: 1680207587270683554}
+  anim: {fileID: 871527172322491550}
 --- !u!50 &7783489189443593062
 Rigidbody2D:
   serializedVersion: 4
@@ -126,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb771a20407fec42965a7099548f045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1680207587270683554}
+  animator: {fileID: 871527172322491550}
   attackPoint: {fileID: 1535721803211792807}
   attackRange: 1.18
   enemyLayers:
@@ -146,8 +149,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d82e3544cbe65f43b2217447ef44ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1680207587270683554}
+  anim: {fileID: 871527172322491550}
   maxHealth: 100
+--- !u!114 &8295531722681909098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266806838777891677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb771a20407fec42965a7099548f045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 871527172322491550}
+  attackPoint: {fileID: 1288769096998333188}
+  attackRange: 1.18
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  attackDamage: 20
+  attackRate: 2
+--- !u!114 &8949522269956792751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266806838777891677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d82e3544cbe65f43b2217447ef44ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 871527172322491550}
+  maxHealth: 100
+--- !u!1 &1913713059340120196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1288769096998333188}
+  m_Layer: 6
+  m_Name: AttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1288769096998333188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913713059340120196}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.03, y: -0.16, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5056004084260048374}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4556525282627500232
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb09df9db553ffc4ab6600e3070de9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 1680207587270683554}
+  _anim: {fileID: 871527172322491550}
   _sprite: {fileID: 7085646238601253977}
   _maxIdleSpeed: 2
   _maxTilt: 5
@@ -305,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1048553523811988725}
   - component: {fileID: 7085646238601253977}
-  - component: {fileID: 1680207587270683554}
+  - component: {fileID: 871527172322491550}
   m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
@@ -380,7 +448,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1680207587270683554
+--- !u!95 &871527172322491550
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
