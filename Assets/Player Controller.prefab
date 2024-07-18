@@ -150,7 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 871527172322491550}
-  maxHealth: 100
+  maxHealth: 5
+  currentHealth: 0
+  isInvulnerable: 0
 --- !u!114 &8295531722681909098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 871527172322491550}
   maxHealth: 100
+  currentHealth: 0
+  isInvulnerable: 0
 --- !u!1 &1913713059340120196
 GameObject:
   m_ObjectHideFlags: 0
