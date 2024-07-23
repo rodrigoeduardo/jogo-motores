@@ -61,7 +61,7 @@ namespace TarodevController
                 _frameInput.Move.x = Mathf.Abs(_frameInput.Move.x) < _stats.HorizontalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.x);
                 _frameInput.Move.y = Mathf.Abs(_frameInput.Move.y) < _stats.VerticalDeadZoneThreshold ? 0 : Mathf.Sign(_frameInput.Move.y);
 
-                anim.SetFloat("Speed",Mathf.Abs(_frameInput.Move.x));
+                anim.SetFloat("Speed", Mathf.Abs(_frameInput.Move.x));
             }
 
             if (_frameInput.JumpDown)
@@ -78,12 +78,12 @@ namespace TarodevController
             HandleJump();
             HandleDirection();
             HandleGravity();
-            
+
             ApplyMovement();
         }
 
         #region Collisions
-        
+
         private float _frameLeftGrounded = float.MinValue;
         private bool _grounded;
 

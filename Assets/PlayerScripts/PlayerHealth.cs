@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TarodevController;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,10 +13,13 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public bool isInvulnerable = false;
+    private Rigidbody2D rb;
 
     void Start()
     {
         currentHealth = maxHealth;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -42,10 +46,10 @@ public class PlayerHealth : MonoBehaviour
         isInvulnerable = true;
 
         SpriteRenderer sr = gameObject.GetComponentInChildren<SpriteRenderer>();
-        Color halfTransparent = sr.color;
-        halfTransparent.a = 0.5f;
+        Color transparent = sr.color;
+        transparent.a = 0.1f;
 
-        sr.color = halfTransparent;
+        sr.color = transparent;
 
         Invoke(nameof(EndInvulnerability), 2f);
     }
@@ -66,25 +70,21 @@ public class PlayerHealth : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.name == "Instakill")
+        {
+            TakeDamage(maxHealth);
+        }
+    }
+
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.name == "Threats")
+        if (other.gameObject.name == "Threats" || other.gameObject.CompareTag("Enemy"))
         {
             if (isInvulnerable) return;
 
             TakeDamage(1);
-
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
-            // Verifica se o Rigidbody2D não é nulo
-            if (rb != null)
-            {
-                // Calcula a direção oposta à da colisão
-                Vector2 oppositeForce = -other.contacts[0].normal * 100f; // Ajuste a magnitude da força conforme necessário
-
-                // Aplica a força contrária
-                rb.AddForce(oppositeForce, ForceMode2D.Impulse);
-            }
         }
     }
 }
