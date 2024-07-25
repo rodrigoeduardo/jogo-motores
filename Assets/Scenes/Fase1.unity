@@ -11886,6 +11886,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5056004084260048374, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
   m_PrefabInstance: {fileID: 2102697112}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &230388326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8417090850839527663, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
+  m_PrefabInstance: {fileID: 2102697112}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61c64124c8575748994f087b9dc1b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &260537396
 GameObject:
   m_ObjectHideFlags: 0
@@ -12027,8 +12038,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -14201,8 +14220,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16523,8 +16550,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16636,8 +16671,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16709,8 +16752,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16782,8 +16833,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16860,8 +16919,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -16928,7 +16995,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7670562680723995881, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 230388326}
+    - target: {fileID: 8417090850839527663, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
+      propertyPath: kbTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8417090850839527663, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
+      propertyPath: kbForce
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8949522269956792751, guid: 89386dd95d2cd794980ecc38a971aa9b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -16990,8 +17070,16 @@ PrefabInstance:
       value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX
@@ -17014,6 +17102,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1940215005}
     m_Modifications:
+    - target: {fileID: -242005195574966814, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1860672714323590483, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.49
@@ -17063,8 +17155,16 @@ PrefabInstance:
       value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: rightX
       value: -6.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982638052064279480, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
+      propertyPath: kbForce
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5011080544448414646, guid: 21bc8a671272a184080cb75ab20a505c, type: 3}
       propertyPath: m_FlipX

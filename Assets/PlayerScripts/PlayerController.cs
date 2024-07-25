@@ -71,15 +71,37 @@ namespace TarodevController
             }
         }
 
+        public float kbForce;
+        public float kbCount;
+        public float kbTime;
+
+        public bool isKnockbackRight;
+
+        void KnockLogic(){
+            if(kbCount < 0){
+                HandleJump();
+                HandleDirection();
+                HandleGravity();
+                ApplyMovement();
+            }
+
+            else{
+                if(isKnockbackRight){
+                    _rb.velocity = new Vector2(-kbForce, kbForce);
+                }
+                if(!isKnockbackRight){
+                    _rb.velocity = new Vector2(kbForce, kbForce);
+                }
+            }
+
+            kbCount -= Time.deltaTime;
+        }
+
         private void FixedUpdate()
         {
             CheckCollisions();
-
-            HandleJump();
-            HandleDirection();
-            HandleGravity();
-
-            ApplyMovement();
+            KnockLogic();
+            
         }
 
         #region Collisions

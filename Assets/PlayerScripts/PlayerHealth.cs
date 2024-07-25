@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public bool isInvulnerable = false;
     private Rigidbody2D rb;
+    public PlayerController player;
 
     void Start()
     {
@@ -30,7 +31,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        anim.SetTrigger("Hit");
         currentHealth -= damage;
 
         StartInvulnerability();
@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
 
         sr.color = transparent;
 
-        Invoke(nameof(EndInvulnerability), 2f);
+        Invoke(nameof(EndInvulnerability), 0.5f);
     }
 
     void EndInvulnerability()
@@ -72,19 +72,23 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.name == "Instakill")
-        {
-            TakeDamage(maxHealth);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D other)
-    {
         if (other.gameObject.name == "Threats" || other.gameObject.CompareTag("Enemy"))
         {
             if (isInvulnerable) return;
+            player.kbCount = player.kbTime;
+            if(other.transform.position.x <= transform.position.x){
+                player.isKnockbackRight = false;
+            }
 
+            if(other.transform.position.x >= transform.position.x){
+                player.isKnockbackRight = true;
+            }
+            anim.SetTrigger("Hit");
             TakeDamage(1);
+        }
+
+        else if(other.gameObject.name == "Instakill"){
+            TakeDamage(maxHealth);
         }
     }
 }

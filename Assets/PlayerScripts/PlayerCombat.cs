@@ -48,7 +48,7 @@ public class PlayerCombat : MonoBehaviour
             Enemy enemyComponent = enemy.GetComponent<Enemy>();
             if (enemyComponent != null)
             {
-                enemyComponent.TakeDamage(attackDamage);
+                enemyComponent.TakeDamage(attackDamage, attackPoint);
             }
         }
     }
