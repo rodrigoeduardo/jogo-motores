@@ -104,41 +104,43 @@ namespace TarodevController
             
         }
 
+        
+
         #region Collisions
 
         private float _frameLeftGrounded = float.MinValue;
         private bool _grounded;
 
         private void CheckCollisions()
-        {
-            Physics2D.queriesStartInColliders = false;
+{
+    Physics2D.queriesStartInColliders = false;
 
-            // Ground and Ceiling
-            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, ~_stats.PlayerLayer);
-            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, ~_stats.PlayerLayer);
+    bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, ~_stats.PlayerLayer);
+    bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, ~_stats.PlayerLayer);
 
-            // Hit a Ceiling
-            if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
+    if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
 
-            // Landed on the Ground
-            if (!_grounded && groundHit)
-            {
-                _grounded = true;
-                _coyoteUsable = true;
-                _bufferedJumpUsable = true;
-                _endedJumpEarly = false;
-                GroundedChanged?.Invoke(true, Mathf.Abs(_frameVelocity.y));
-            }
-            // Left the Ground
-            else if (_grounded && !groundHit)
-            {
-                _grounded = false;
-                _frameLeftGrounded = _time;
-                GroundedChanged?.Invoke(false, 0);
-            }
+    if (!_grounded && groundHit)
+    {
+        _grounded = true;
+        _coyoteUsable = true;
+        _bufferedJumpUsable = true;
+        _endedJumpEarly = false;
+        GroundedChanged?.Invoke(true, Mathf.Abs(_frameVelocity.y));
 
-            Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
-        }
+        // Parar animação de pulo ao aterrissar
+        anim.SetBool("Grounded", true);
+    }
+    else if (_grounded && !groundHit)
+    {
+        _grounded = false;
+        _frameLeftGrounded = _time;
+        GroundedChanged?.Invoke(false, 0);
+
+    }
+
+    Physics2D.queriesStartInColliders = _cachedQueryStartInColliders;
+}
 
         #endregion
 
@@ -160,10 +162,17 @@ namespace TarodevController
 
             if (!_jumpToConsume && !HasBufferedJump) return;
 
-            if (_grounded || CanUseCoyote) ExecuteJump();
+            if (_grounded || CanUseCoyote)
+            {
+            ExecuteJump();
 
-            _jumpToConsume = false;
-        }
+             // Definir animação de pulo
+            anim.SetTrigger("Jump");
+            anim.SetBool("Grounded",false);
+            }
+
+    _jumpToConsume = false;
+}
 
         private void ExecuteJump()
         {
@@ -180,17 +189,23 @@ namespace TarodevController
         #region Horizontal
 
         private void HandleDirection()
-        {
-            if (_frameInput.Move.x == 0)
-            {
-                var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
-                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, deceleration * Time.fixedDeltaTime);
-            }
-            else
-            {
-                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
-            }
-        }
+{
+    if (_frameInput.Move.x == 0)
+    {
+        var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
+        _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, deceleration * Time.fixedDeltaTime);
+    }
+    else
+    {
+        _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
+
+        // Alterar a direção da sprite com base no movimento
+        if (_frameInput.Move.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);  // Direita
+        else if (_frameInput.Move.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1); // Esquerda
+    }
+}
 
         #endregion
 

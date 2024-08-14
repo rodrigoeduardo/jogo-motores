@@ -4,66 +4,78 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public Animator animator;
-    public Transform attackPoint;
+     [Header("Attack Parameters")]
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private float range;
+    [SerializeField] private int damage;
 
-    public float attackRange = 0.5f;
-    public LayerMask enemyLayers;
+    [Header("Collider Parameters")]
+    [SerializeField] private CapsuleCollider2D boxCollider;
+    [SerializeField] private float colliderDistance;
 
-    public int attackDamage = 20;
-    public float attackRate = 2f;
-    float nextAttackTime = 0f;
+    [Header("Enemy Layer")]
+    [SerializeField] private LayerMask enemyLayer;
 
-    private bool facingRight = true;
+    private float cooldownTimer = Mathf.Infinity;
+    private Animator anim;
+    private EnemyHealth enemyHealth;
+    private BossHealth bossHealth;
 
-    void Update()
+
+    private void Awake()
     {
-        if (Time.time >= nextAttackTime)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
-            }
-        }
+        anim = GetComponent<Animator>();
+    }
 
-        // Flip attack point based on player direction
-        if (Input.GetAxisRaw("Horizontal") > 0 && !facingRight)
+    private void Update()
+    {
+        cooldownTimer += Time.deltaTime;
+
+        // Verifica se o jogador quer atacar e se o cooldown já passou
+        if (Input.GetKeyDown(KeyCode.Mouse0) && cooldownTimer >= attackCooldown)
         {
-            Flip();
-        }
-        else if (Input.GetAxisRaw("Horizontal") < 0 && facingRight)
-        {
-            Flip();
+            cooldownTimer = 0;
+            anim.SetTrigger("Attack");
         }
     }
 
-    void Attack()
+    // Este método deve ser chamado no evento da animação de ataque
+    private void DamageEnemy()
+{
+    if (EnemyInSight())
     {
-        animator.SetTrigger("Attack");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
+        if (enemyHealth != null)
         {
-            Enemy enemyComponent = enemy.GetComponent<Enemy>();
-            if (enemyComponent != null)
-            {
-                enemyComponent.TakeDamage(attackDamage, attackPoint);
-            }
+            enemyHealth.TakeDamage(damage);
+        }
+        else if (bossHealth != null)
+        {
+            bossHealth.TakeDamage(damage);
         }
     }
+}
 
-    void Flip()
+private bool EnemyInSight()
+{
+    RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+        new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+        0, Vector2.left, 0, enemyLayer);
+
+    if (hit.collider != null)
     {
-        facingRight = !facingRight;
-        Vector3 scaler = attackPoint.localPosition;
-        scaler.x *= -1;
-        attackPoint.localPosition = scaler;
+        enemyHealth = hit.transform.GetComponent<EnemyHealth>();
+        bossHealth = hit.transform.GetComponent<BossHealth>();
+
+        return enemyHealth != null || bossHealth != null;
     }
 
-    void OnDrawGizmosSelected()
+    return false;
+}
+
+    private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
     }
 }
