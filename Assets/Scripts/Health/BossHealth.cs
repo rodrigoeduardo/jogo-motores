@@ -51,6 +51,7 @@ public class BossHealth : MonoBehaviour
         {
             anim.SetTrigger("Hit");
             StartCoroutine(Invulnerability());
+            SoundManager.instance.PlaySound(hurtSound);
         }
         else
         {
@@ -61,28 +62,18 @@ public class BossHealth : MonoBehaviour
             {
                 component.enabled = false;
             }
+            anim.SetTrigger("Dead");
+            SoundManager.instance.PlaySound(deathSound);
+            rb.velocity = Vector2.zero;
 
-            StartCoroutine(Die());
+            gameObject.tag = "Dead";
+            gameObject.layer = LayerMask.NameToLayer("Dead");
+
         }
     }
 
-    private IEnumerator Die()
+    private void Die()
     {
-        anim.SetTrigger("Dead");
-        rb.velocity = Vector2.zero;
-
-        gameObject.tag = "Dead";
-        gameObject.layer = LayerMask.NameToLayer("Dead");
-
-        // Play death sound
-        if (deathSound != null)
-        {
-            AudioSource.PlayClipAtPoint(deathSound, transform.position);
-        }
-
-        // Wait for the death animation to finish before destroying the object
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - 0.2f);
-
         Destroy(transform.parent.gameObject);
     }
 

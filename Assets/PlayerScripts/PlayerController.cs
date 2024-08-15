@@ -28,6 +28,9 @@ namespace TarodevController
         public event Action<bool, float> GroundedChanged;
         public event Action Jumped;
 
+        [SerializeField] private AudioClip jumpSound;
+
+
         #endregion
 
         private float _time;
@@ -168,6 +171,7 @@ namespace TarodevController
 
              // Definir animação de pulo
             anim.SetTrigger("Jump");
+            SoundManager.instance.PlaySound(jumpSound);
             anim.SetBool("Grounded",false);
             }
 

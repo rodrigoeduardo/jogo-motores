@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TarodevController;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -65,27 +66,58 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        if (invulnerable) return;
-        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
+    if (dead || invulnerable) return;
+    currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
 
-        if (currentHealth > 0)
+    if (currentHealth > 0)
+    {
+        anim.SetTrigger("Hit");
+        StartCoroutine(Invunerability());
+        SoundManager.instance.PlaySound(hurtSound);
+    }
+    else if(currentHealth <= 0 && !dead)
+    {
+        dead = true;
+        foreach (var component in components)
         {
-            anim.SetTrigger("Hit");
-            StartCoroutine(Invunerability());
-            //SoundManager.instance.PlaySound(hurtSound);
+            component.enabled = false;
         }
-        if(currentHealth <= 0)
+            
+        // Desativar o controle do jogador
+        DisablePlayerControl();
+
+        anim.SetTrigger("Dead");
+        rb.velocity = Vector2.zero;
+
+        gameObject.layer = LayerMask.NameToLayer("Dead");
+
+        // Play death sound
+        if (deathSound != null)
         {
-            StartCoroutine(Die());
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
         }
     }
+}
 
-    private IEnumerator Die()
+private void DisablePlayerControl()
+{
+    var playerController = GetComponent<PlayerController>();
+    if (playerController != null)
     {
-        anim.SetTrigger("die");
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 0.4f);
+        playerController.enabled = false;
+    }
 
+    var playerCombat = GetComponent<PlayerCombat>();
+    if (playerCombat != null)
+    {
+        playerCombat.enabled = false;
+    }
+}
+
+
+
+    private void Die()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

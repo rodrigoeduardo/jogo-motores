@@ -15,7 +15,8 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Enemy Layer")]
     [SerializeField] private LayerMask enemyLayer;
-
+    [SerializeField] private AudioClip attackSound;
+    
     private float cooldownTimer = Mathf.Infinity;
     private Animator anim;
     private EnemyHealth enemyHealth;
@@ -36,6 +37,7 @@ public class PlayerCombat : MonoBehaviour
         {
             cooldownTimer = 0;
             anim.SetTrigger("Attack");
+            SoundManager.instance.PlaySound(attackSound);
         }
     }
 

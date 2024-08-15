@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
         enemyPatrol = GetComponentInParent<EnemyPatrol>();
     }
 
-    public void TakeDamage(float _damage)
+   public void TakeDamage(float _damage)
 {
     if (invulnerable) return;
     currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
     {
         anim.SetTrigger("Hit");
         StartCoroutine(Invunerability());
-        //SoundManager.instance.PlaySound(hurtSound);
+        SoundManager.instance.PlaySound(hurtSound);
     }
     else if (currentHealth <= 0 && !dead)
     {
@@ -59,23 +59,27 @@ public class EnemyHealth : MonoBehaviour
         {
             component.enabled = false;
         }
-
-        StartCoroutine(Die());
-    }
-}
-
-    private IEnumerator Die()
-    {
         anim.SetTrigger("Dead");
+        SoundManager.instance.PlaySound(deathSound);
         rb.velocity = Vector2.zero;
 
         gameObject.tag = "Dead";
         gameObject.layer = LayerMask.NameToLayer("Dead");
 
+        // Ignorar colisão entre o inimigo morto e o jogador
+        Collider2D enemyCollider = GetComponent<Collider2D>();
+        Collider2D playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider2D>();
 
-        // Espera a animação de morte terminar antes de destruir o objeto
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        if (enemyCollider != null && playerCollider != null)
+        {
+            Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);
+        }
+    }
+}
 
+
+    private void Die()
+    {
         Destroy(transform.parent.gameObject);
     }
 
