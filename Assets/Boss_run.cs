@@ -37,7 +37,6 @@ public class Boss_run : StateMachineBehaviour
 		rb.MovePosition(newPos);
 
         cooldownTimer += Time.deltaTime;
-
 		if (Vector2.Distance(player.position, rb.position) <= attackRange && cooldownTimer >= attackCooldown)
 		{
 			attackVariationTimer += Time.deltaTime;

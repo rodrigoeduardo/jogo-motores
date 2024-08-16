@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,8 +8,15 @@ public class SoundManager : MonoBehaviour
     private AudioSource soundSource;
     private AudioSource musicSource;
 
-    [SerializeField] private AudioClip initialMusic; // Música inicial da cena
+    [SerializeField] private AudioClip initialMusic;
+    [SerializeField] private AudioClip firstMusic;
+    [SerializeField] private AudioClip lastMusic;
+
+
     private AudioClip currentMusic; // Música que está tocando no momento
+
+    // Dicionário para associar cenas a músicas
+    private Dictionary<string, AudioClip> sceneMusicDictionary = new Dictionary<string, AudioClip>();
 
     private void Awake()
     {
@@ -26,6 +34,10 @@ public class SoundManager : MonoBehaviour
         soundSource = GetComponent<AudioSource>();
         musicSource = transform.GetChild(0).GetComponent<AudioSource>();
 
+        // Adiciona músicas associadas a cada cena
+        sceneMusicDictionary.Add("Menu", initialMusic);
+        sceneMusicDictionary.Add("Fase 1", firstMusic);
+        sceneMusicDictionary.Add("Fase 2", lastMusic);
         // Ouve eventos de mudança de cena
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -39,8 +51,16 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Ao carregar uma nova cena, toca a música inicial novamente
-        PlayMusic(initialMusic);
+        // Verifica se há uma música associada à cena carregada
+        if (sceneMusicDictionary.TryGetValue(scene.name, out AudioClip music))
+        {
+            PlayMusic(music);
+        }
+        else
+        {
+            // Se não houver, toca a música padrão
+            PlayMusic(initialMusic);
+        }
     }
 
     public void PlaySound(AudioClip _sound)

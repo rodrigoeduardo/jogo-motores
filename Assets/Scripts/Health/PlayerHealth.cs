@@ -25,10 +25,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip hurtSound;
 
-    [Header("Knockback")]
-    public float kbTime; // Duração do knockback
-    public float kbCount; // Contador do knockback
-    public bool isKnockbackRight; // Direção do knockback
 
     private void Awake()
     {
@@ -39,34 +35,24 @@ public class PlayerHealth : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other)
+{
+    if (other.gameObject.name == "Threats" || other.gameObject.CompareTag("Enemy"))
     {
-        if (other.gameObject.name == "Threats" || other.gameObject.CompareTag("Enemy"))
-        {
-            if (invulnerable) return;
+        if (invulnerable) return;
 
-            // Configuração do Knockback
-            kbCount = kbTime;
-            if (other.transform.position.x <= transform.position.x)
-            {
-                isKnockbackRight = false;
-            }
-            else
-            {
-                isKnockbackRight = true;
-            }
-
-            anim.SetTrigger("Hit");
-            TakeDamage(1);
-        }
-        else if (other.gameObject.name == "Instakill")
-        {
-            TakeDamage(startingHealth);
-        }
+        anim.SetTrigger("Hit");
+        TakeDamage(1);
     }
-
-    public void TakeDamage(float _damage)
+    else if (other.gameObject.name == "Instakill")
     {
-    if (dead || invulnerable) return;
+        // Ignorar invulnerabilidade e aplicar dano total
+        TakeDamage(startingHealth, ignoreInvulnerability: true);
+    }
+}
+
+public void TakeDamage(float _damage, bool ignoreInvulnerability = false)
+{
+    if (dead || (invulnerable && !ignoreInvulnerability)) return;
     currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
 
     if (currentHealth > 0)
@@ -98,6 +84,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
+
 
 private void DisablePlayerControl()
 {
