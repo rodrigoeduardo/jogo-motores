@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossHealth : MonoBehaviour
 {
@@ -69,12 +70,22 @@ public class BossHealth : MonoBehaviour
             gameObject.tag = "Dead";
             gameObject.layer = LayerMask.NameToLayer("Dead");
 
+            Invoke(nameof(Die), 2f);
         }
     }
 
     private void Die()
     {
         Destroy(transform.parent.gameObject);
+
+        if (SceneManager.GetActiveScene().name == "Fase 1")
+        {
+            SceneManager.LoadScene("Fase 2");
+        }
+        else if (SceneManager.GetActiveScene().name == "Fase 2")
+        {
+            SceneManager.LoadScene("Win");
+        }
     }
 
     private IEnumerator Invulnerability()

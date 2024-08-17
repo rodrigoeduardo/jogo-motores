@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,12 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMenu()
     {
-        ResumeGame();
+        try
+        {
+            ResumeGame();
+        }
+        catch (Exception)
+        { }
         SceneManager.LoadScene("Menu");
     }
 }
